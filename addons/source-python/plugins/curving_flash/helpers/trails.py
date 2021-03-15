@@ -25,7 +25,10 @@ trails = []
 
 
 def initialize_trails():
+    """Creates and stores two TempEntity instances used for grenade trails."""
+    # Make sure to remove any references to old TempEntity instances.
     trails.clear()
+    # Add two new instances to the list.
     trails.extend([
         TempEntity(
             temp_entity='BeamFollow', 

@@ -5,8 +5,8 @@ from entities.constants import MoveType
 from entities.entity import Entity
 
 # Curving Flash
-from .constants import UP
 from ..helpers.trails import create_trails
+from .constants import UP
 
 
 class CurvingFlash(Entity):
@@ -53,7 +53,7 @@ class CurvingFlash(Entity):
         self.move_type = MoveType.FLY
         # Curve the 'flashbang_projectile' in the opposite direction a bit.
         start_velocity = (start_direction + (curve_direction * -0.28)) * 400
-        self.teleport(None, self.angles, start_velocity)
+        self.teleport(velocity=start_velocity)
         # Get 22% of the initial velocity and invert it.
         self.reverse_velocity = start_velocity * -0.22
         self.curve_velocity = (curve_direction + UP) * 120
@@ -70,5 +70,4 @@ class CurvingFlash(Entity):
 
         # Curve the 'flashbang_projectile' to the side and pull it a bit 
         # towards the starting position.
-        self.set_datamap_property_vector('m_vecBaseVelocity', 
-            self.curve_velocity + self.reverse_velocity)
+        self.base_velocity = self.curve_velocity + self.reverse_velocity
