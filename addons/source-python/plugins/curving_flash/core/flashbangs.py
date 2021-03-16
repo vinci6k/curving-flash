@@ -25,7 +25,7 @@ class CurvingFlash(Entity):
             function.
     """
 
-    def __init__(self, index, caching=False):
+    def __init__(self, index, caching=True):
         """Initializes the object."""
         super().__init__(index, caching)
         
@@ -63,11 +63,6 @@ class CurvingFlash(Entity):
         self.delay(curve_delay + 0.55, self.detonate)
 
     def _think(self):
-        # Did the 'flashbang_projectile' touch something while curving?
-        if self.get_network_property_int('m_nBounces') > 0:
-            self.think.stop()
-            return
-
         # Curve the 'flashbang_projectile' to the side and pull it a bit 
         # towards the starting position.
         self.base_velocity = self.curve_velocity + self.reverse_velocity

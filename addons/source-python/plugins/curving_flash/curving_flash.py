@@ -2,6 +2,8 @@
 
 # Source.Python
 from entities.entity import Entity
+from entities.helpers import index_from_pointer
+from entities.hooks import EntityCondition, EntityPreHook
 from events import Event
 from mathlib import Vector
 
@@ -9,6 +11,7 @@ from mathlib import Vector
 from .core.commands import inspect_weapon
 from .core.flashbangs import CurvingFlash
 from .core.listeners import OnFlashbangCreated
+from .core.memory import CBaseGrenade
 from .core.players import PlayerCF
 
 
@@ -42,6 +45,22 @@ def on_flashbang_created(index, owner_handle):
         curve_direction=right,
         curve_delay=0.1
         )
+
+
+@EntityPreHook(
+    EntityCondition.equals_entity_classname('flashbang_projectile'),
+    lambda entity: CBaseGrenade._obj(entity.pointer).bounce_sound)
+def bounce_sound_pre(stack_data):
+    """Called when a 'flashbang_projectile' bounces."""
+    try:
+        # Is this a curving flashbang?
+        flashbang = CurvingFlash.cache[index_from_pointer(stack_data[0])]
+    except KeyError:
+        # Nope, don't go further.
+        return
+
+    # Stop curving.
+    flashbang.think.stop()
 
 
 @Event('player_death')
