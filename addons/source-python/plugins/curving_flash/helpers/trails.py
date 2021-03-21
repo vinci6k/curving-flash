@@ -31,31 +31,37 @@ def initialize_trails():
     # Add two new instances to the list.
     trails.extend([
         TempEntity(
-            temp_entity='BeamFollow', 
-            model=default_model, 
-            start_width=0.4, 
-            end_width=0.4, 
-            color=Color(255, 255, 255), 
-            alpha=100, 
-            life_time=0.4, 
+            temp_entity='BeamFollow',
+            model=default_model,
+            start_width=0.4,
+            end_width=0.4,
+            color=Color(255, 255, 255),
+            alpha=100,
+            life_time=0.4,
             fade_time=0.4),
         TempEntity(
-            temp_entity='BeamFollow', 
-            model=default_model, 
-            start_width=0.1, 
-            end_width=0.1, 
-            color=Color(255, 255, 255), 
-            alpha=50, 
-            life_time=0.6, 
+            temp_entity='BeamFollow',
+            model=default_model,
+            start_width=0.1,
+            end_width=0.1,
+            color=Color(255, 255, 255),
+            alpha=50,
+            life_time=0.6,
             fade_time=0.2)
     ])
 
 
 def create_trails(entity_index):
+    """Creates two trails and ties them to the entity with the given index."""
     for trail in trails:
         trail.entity_index = entity_index
         trail.create()
 
 
-initialize_trails()
-
+try:
+    # In case of a late plugin load, try to initialize the trails.
+    initialize_trails()
+except TypeError:
+    # Too soon to initialize the trails, plugin was loaded with the
+    # autoexec/server.cfg file. OnServerActivate will take care of it.
+    pass
