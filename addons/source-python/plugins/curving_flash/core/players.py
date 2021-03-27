@@ -5,6 +5,7 @@ from messages import HintText
 from players.entity import Player
 
 # Curving Flash
+from .constants import ThrowingMode
 from .strings import strings
 
 
@@ -21,16 +22,17 @@ switch_message = {
 
 class PlayerCF(Player):
     """Custom Player class.
-    
+
     Args:
         index (int): A valid player index.
         caching (bool): Check for a cached instance?
 
     Attributes:
-        last_inspect_time (float): Last time (seconds since the epoch) the 
+        last_inspect_time (float): Last time (seconds since the epoch) the
             player inspected their weapon.
         should_curve_flash (bool): Should the player curve flashbangs when
             throwing them?
+        throwing_mode (ThrowingMode): How should the player throw flashbangs?
     """
 
     def __init__(self, index, caching=True):
@@ -39,6 +41,7 @@ class PlayerCF(Player):
 
         self.last_inspect_time = 0.0
         self.should_curve_flash = False
+        self.throwing_mode = ThrowingMode.NORMAL
 
     def switch_flash_mode(self):
         """Inverts the player's flashbang throwing mode."""
@@ -54,3 +57,4 @@ class PlayerCF(Player):
     def on_death(self):
         """Called when the player dies."""
         self.should_curve_flash = False
+        self.throwing_mode = ThrowingMode.NORMAL
