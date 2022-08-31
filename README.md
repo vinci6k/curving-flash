@@ -1,7 +1,7 @@
 # Curving Flash
 This plugin adds the ability to throw flashbangs in a curve to your server.
 
-<img src="https://media2.giphy.com/media/eJYGpsGLCFhlb5lZEZ/giphy.gif" width="416px"/> <img src="https://media0.giphy.com/media/lMrUsQthIPsfoJmXhY/giphy.gif" width="416px"/>
+<img src="https://media2.giphy.com/media/eJYGpsGLCFhlb5lZEZ/giphy.gif" width="412px"/> <img src="https://media0.giphy.com/media/lMrUsQthIPsfoJmXhY/giphy.gif" width="412px"/>
 
 See the plugin in action: https://youtu.be/GoANDNFMt2A
 
